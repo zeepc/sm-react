@@ -7,24 +7,29 @@ class App extends Component {
 constructor(){
   super()
   this.state = {
-    timeStart: false, //set the state of timer to false
+    timeStart: false, //set the state of timer to FALSE to start
   }
 }
 
 
 timerClick = (timeStart) => {
-  this.setState({timerStart: true}) //if timer is clicked set state to true; IT WORKS
-  const counter = 1;
-  if (counter === 1) {
-    console.log('I was clicked!!!!!!!!!!');
-  }
-}
+  this.setState({timerStart: true}) //if timer is clicked set state to TRUE; IT WORKS 
+  let counter = 0;
+  while (counter < 1) {
+    console.log('CLICKKKKK')
+    let i = new Date().toLocaleTimeString()
+     document.getElementById('clock').insertAdjacentHTML('beforeend','<h1>'+ i +'</h1>')
+     // setInterval(timerClick, 1000);
+    } 
 
-  render() {
-    return (
-      <div className="App">
-        <Timer timerClick={this.timerClick}/>
-      </div>
+  }
+// setInterval(timerClick,1000);
+
+render() {
+  return (
+    <div className="App">
+      <Timer timerClick={this.timerClick}/>
+    </div>
     );
   }
 }
