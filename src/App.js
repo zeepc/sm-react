@@ -8,27 +8,65 @@ constructor(){
   super()
   this.state = {
     timeStart: false, //set the state of timer to FALSE to start
+    time: 0,
+    timer: 0,
   }
 }
 
-
-timerClick = (timeStart) => {
+timerClick = (running, time, hours, mins, secs, tenths) => {
   this.setState({timerStart: true}) //if timer is clicked set state to TRUE; IT WORKS 
-  let counter = 0;
-  while (counter < 1) {
-    console.log('CLICKKKKK')
-    let i = new Date().toLocaleTimeString()
-     document.getElementById('clock').insertAdjacentHTML('beforeend','<h1>'+ i +'</h1>')
-     // setInterval(timerClick, 1000);
-    } 
-
+  running = 0;
+  time = 0;
+  hours = Math.floor(time/10/60/60);
+  mins = Math.floor(time/10/60);
+  secs = Math.floor(time/10);
+  tenths = time % 10;
+  // console.log('CLICKKKKK');
+  if(running === 0){
+    running = 1;
+   this.increment();
+    document.getElementById('startSplit').innerHTML = "Split";
+  } else {
+    console.log('its hitting else')
+    running = 1;
+    this.increment();
+  document.getElementById('list').insertAdjacentHTML('beforeend',`<a><li>${this.hours} :  ${this.mins}  :  ${this.secs}  :  ${this.tenths} </li></a>`);
   }
-// setInterval(timerClick,1000);
+}
+
+ increment = (running, time, hours, mins, secs, tenths) => {
+  if (running === 1) {
+    setTimeout(function(){
+     this.time++;
+      hours = Math.floor(this.time/10/60/60);
+      mins = Math.floor(this.time/10/60);
+      secs = Math.floor(this.time/10) ;
+      tenths = this.time % 10;
+   
+    if(hours < 10){
+      hours = "0" + hours;
+    }
+    if(mins < 10){
+      mins = "0" + mins;
+    }
+    if(secs < 10){
+      secs = "0" + secs;
+    }
+     document.getElementById('clock').innerHTML =`${hours} : ${mins} : ${secs} : ${tenths}`;
+     this.increment(); 
+    },100);
+  }  
+}
+
+
+ componentDidMount(){
+  console.log('DID MOUNT');
+ }
 
 render() {
   return (
     <div className="App">
-      <Timer timerClick={this.timerClick}/>
+      <Timer timerClick={this.timerClick} increment={this.increment}/>
     </div>
     );
   }
