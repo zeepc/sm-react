@@ -14,14 +14,16 @@ constructor(){
 }
 
 timerClick = (running, time, hours, mins, secs, tenths) => {
-  this.setState({timerStart: true}) //if timer is clicked set state to TRUE; IT WORKS 
+  this.setState({timerStart: true}) //If timer is clicked set state to TRUE.
   running = 0;
   time = 0;
   hours = Math.floor(time/10/60/60);
   mins = Math.floor(time/10/60);
   secs = Math.floor(time/10);
   tenths = time % 10;
-  // console.log('CLICKKKKK');
+
+  // If running is 0, change button to split so that user can click it to "capture" laps.
+  // else if timer already started, capture laps and add to an unordered list.
   if(running === 0){
     running = 1;
    this.increment();
@@ -34,6 +36,8 @@ timerClick = (running, time, hours, mins, secs, tenths) => {
   }
 }
 
+// Functionality to display the initial timer. 
+//This function is called on the conditionals inside of  the timerClick function.
  increment = (running, time, hours, mins, secs, tenths) => {
   if (running === 1) {
     setTimeout(function(){
@@ -58,10 +62,6 @@ timerClick = (running, time, hours, mins, secs, tenths) => {
   }  
 }
 
-
- componentDidMount(){
-  console.log('DID MOUNT');
- }
 
 render() {
   return (
